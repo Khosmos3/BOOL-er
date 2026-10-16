@@ -108,7 +108,8 @@ function update(event) {
             for (let k = 0; k < variables.length; k++)
                 specificReplacedOperators = specificReplacedOperators.replaceAll(variables[k], Math.floor(i / (numRows / Math.pow(2, k + 1))) % 2 ? "▤" : "▥");
             finalStatement = specificReplacedOperators.replaceAll("▤", zeroesFirst + "").replaceAll("▥", !zeroesFirst + "");
-            
+            //console.log(eval(finalStatement))
+
             // Fill cells with colors and truth values
             try {
                 cell.innerHTML = numbers ? (eval(finalStatement) ? "1" : "0") : eval(finalStatement);
@@ -120,6 +121,8 @@ function update(event) {
                 improper = true;
                 cell.innerHTML = "N/A";
                 cell.style.backgroundColor = "rgba(180, 187, 191)";
+                if (!variables.length)
+                    get("table").deleteRow(1);  
             }
         }
     }
@@ -127,6 +130,6 @@ function update(event) {
     // Various indicator labels
     if (amountTrues === numRows) get("indicator").innerHTML = "Tautology!";
     else if (amountTrues === 0 && !improper && numRows > 1) get("indicator").innerHTML = "Taut-falsity!";
-    else if (improper) get("indicator").innerHTML = "Improper Syntax";
+    else if (improper && variables.length) get("indicator").innerHTML = "Improper Syntax";
     else get("indicator").innerHTML = "";
 }
