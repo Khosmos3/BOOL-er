@@ -3,12 +3,25 @@ function get(element) {
 }
 
 const inputElement = get("input");
-const zeroesFirst = true;
-const numbers = true;
 
-inputElement.addEventListener("input", (event) => {
+const flip = get("flip-toggle");
+const letterNumber = get("letter-number-toggle");
+
+flip.addEventListener("change", event => update())
+letterNumber.addEventListener("change", event => update())
+inputElement.addEventListener("input", event => update());
+
+// User is updating the statement
+inputElement.addEventListener("keydown", (event) => {
+    if (event.key?.match?.(/enter|tab/i))
+        event.preventDefault();         
+});
+
+function update(event) {
     let statement = get("input").value.trim();
     let table = document.getElementsByTagName("table")[0];
+    let zeroesFirst = flip.checked;
+    let numbers = letterNumber.checked;
 
     // Clear Table
     let toRemove = table.rows.length;
@@ -116,10 +129,4 @@ inputElement.addEventListener("input", (event) => {
     else if (amountTrues === 0 && !improper && numRows > 1) get("indicator").innerHTML = "Taut-falsity!";
     else if (improper) get("indicator").innerHTML = "Improper Syntax";
     else get("indicator").innerHTML = "";
-});
-
-// User is updating the statement
-inputElement.addEventListener("keydown", (event) => {
-    if (event.key?.match?.(/enter|tab/i))
-        event.preventDefault();         
-});
+}

@@ -26,7 +26,7 @@
             font-weight: bold;
         }
 
-        #container, #table {
+        #input-container, #table {
             margin: auto;
             width: fit-content;
         }
@@ -43,20 +43,37 @@
             font-weight: bold;
         }
 
-        #input, #container, #table {
+        #input, #input-container, #table {
             font-size: 20px;
+        }
+
+        #content {
+            display: grid;
+            place-items: center;
+        }
+
+        #toggle-container {
+            margin: 10px;
         }
     </style>
 </head>
 <body>
-    <div id="title">BOOL-er</div>
     <div id="credit">Tom Steen | 2024-2026 </div>
-    <div id="container">
-        <textarea id="input" placeholder="Thy statement" spellcheck="false"></textarea>
+    <div id="content">
+        <div id="title">BOOL-er</div>
+        <div id="input-container">
+            <textarea id="input" placeholder="Thy statement" spellcheck="false"></textarea>
+        </div>
+        <table id = "table">
+        </table>
+        <div id="indicator"></div>
+        <div id="toggle-container">
+            <input type="checkbox" id="letter-number-toggle">
+            <label for="letter-number-toggle">TF/10</label>
+            <input type="checkbox" id="flip-toggle">
+            <label for="flip-toggle">Flip</label>
+        </div>
     </div>
-    <table id = "table">
-    </table>
-    <div id="indicator"></div>
     
     <script src="logic.js"></script>
 </body>
