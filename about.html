@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOL-er</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #title {
+            font-size: 120px;
+            margin-top: 2%;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #content {
+            display: grid;
+            text-align: center;
+            height: fit-content;
+            width: 35%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="title">BOOL-er</div>
+    <div id="content">
+        <div id="quote"></div>
+        <br>
+        This is the BOOL-er. I was inspired to make it in an introductory philosophical logic course, but have since extended it to my work and education in computer engineering. I hope you find it helpful.
+        <br><br>
+        <a href="./index.html">Return to Orbit</a>
+    </div>
+    
+    <script>
+        let quotes = [
+            "<i>\"What is evident here is the ineptitude of the truth table or of any scheme of (full) truth-functionality to explain the exclusion of degrees.\"</i><br>Marcos Silva, <i>On a Philosophical Motivation for Mutilating Truth Tables</i>",
+            "<i>\"Truth table tests do not at all mimic the way we reason naturally in day to day contexts.\"</i><br>Paul A. Gregory, <i>Formal Logic</i>",
+            "<i>\"I don't know why we are here, but I'm pretty sure that it is not in order to enjoy ourselves.\"</i><br>Ludwig Wittgenstein",
+            "<i>\"Hence the phantasy of a seismic fracture and a crumbling into the Pacific, which would be the end of California and of its criminal and scandalous beauty. For it is unbearable, while one is still alive, to pass beyond the difficulty of being, simply to pass into the fluidity of sky, cliffs, surf, and deserts, into the hypothesis of happiness alone.\"</i><br>Jean Baudrillard, <i>America</i>" 
+        ]
+
+        document.getElementById("quote").innerHTML = quotes[0];
+    </script>
+</body>
+</html>
