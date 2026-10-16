@@ -4,6 +4,7 @@ function get(element) {
 
 const inputElement = get("input");
 const zeroesFirst = true;
+const numbers = true;
 
 inputElement.addEventListener("input", (event) => {
     let statement = get("input").value.trim();
@@ -18,6 +19,8 @@ inputElement.addEventListener("input", (event) => {
     let variables = [];
     let operators = ["~", "'", "’", "!", "v", "+", "|", "&", "•", "(", ")", " ", "[", "]", "{", "}"];
     let isFunction = false;
+    let trueSymbol = numbers ? "1" : "T";
+    let falseSymbol = numbers ? "0" : "F";
     if (statement.includes("=")) {
         isFunction = statement.substring(0, statement.indexOf("="));
         statement = statement.substring(statement.indexOf("=") + 1);
@@ -35,7 +38,8 @@ inputElement.addEventListener("input", (event) => {
         cell.innerHTML = variables[i].bold();
     }
     let conclusionCell = topRow.insertCell(variables.length);
-    conclusionCell.innerHTML = isFunction ? isFunction.bold() : statement.bold();
+    conclusionCell.innerHTML = variables.length ? (isFunction ? isFunction.bold() : statement.bold()) : "(Waiting for something to happen?)";
+    conclusionCell.style.backgroundColor = variables.length ? "rgba(255, 255, 255)" : "rgba(164, 102, 179, 0.6)";
 
     // Truth Table
     let numRows = Math.pow(2, variables.length);
@@ -81,8 +85,8 @@ inputElement.addEventListener("input", (event) => {
         
         for (let j = 0; j < variables.length + 1; j++) {
             let cell = row.insertCell(j)
-            cell.innerHTML = Math.floor(i / (numRows / Math.pow(2, j + 1))) % 2 ? (zeroesFirst ? "T" : "F") : (zeroesFirst ? "F" : "T");
-            cell.style.backgroundColor = cell.innerHTML === "T" ? "rgba(81, 240, 166, 0.7)" : "rgba(242, 51, 83, 0.7)";
+            cell.innerHTML = Math.floor(i / (numRows / Math.pow(2, j + 1))) % 2 ? (zeroesFirst ? trueSymbol : falseSymbol) : (zeroesFirst ? falseSymbol : trueSymbol);
+            cell.style.backgroundColor = cell.innerHTML === trueSymbol ? "rgba(81, 240, 166, 0.7)" : "rgba(242, 51, 83, 0.7)";
             
             if (j !== variables.length) continue;
 
@@ -94,12 +98,10 @@ inputElement.addEventListener("input", (event) => {
             
             // Fill cells with colors and truth values
             try {
-                cell.innerHTML = eval(finalStatement);
-                if (eval(cell.innerHTML)) amountTrues++;
-                if (cell.innerHTML == "undefined") {
-                    cell.style.backgroundColor = "rgba(164, 102, 179, 0.6)";
-                    cell.innerHTML = "(Waiting for something to happen?)";
-                }
+                cell.innerHTML = numbers ? (eval(finalStatement) ? "1" : "0") : eval(finalStatement);
+                if (eval(finalStatement)) amountTrues++;
+                if (eval(finalStatement) + "" === "undefined")
+                    get("table").deleteRow(1);
                 else cell.style.backgroundColor = eval(cell.innerHTML) ? "rgba(81, 240, 166, 0.7)" : "rgba(242, 51, 83, 0.7)"; 
             } catch (e) {
                 improper = true;
