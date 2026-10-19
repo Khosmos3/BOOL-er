@@ -49,6 +49,7 @@ function update(event) {
     for (let i = 0; i < variables.length; i++) {
         let cell = topRow.insertCell(i)
         cell.innerHTML = variables[i].bold();
+        cell.style.backgroundColor = "rgba(255, 255, 255)";
     }
     let conclusionCell = topRow.insertCell(variables.length);
     conclusionCell.innerHTML = variables.length ? (isFunction ? isFunction.bold() : statement.bold()) : "(Waiting for something to happen?)";
