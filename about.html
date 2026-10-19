@@ -13,7 +13,7 @@
 
         #title {
             font-size: 120px;
-            margin-top: 2%;
+            padding-top: 100px;
             font-weight: bold;
             text-align: center;
         }
@@ -25,9 +25,15 @@
             width: 35%;
             margin: auto;
         }
+
+        #background {
+            position: fixed;
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
+    <canvas id="background"></canvas>
     <div id="title">BOOL-er</div>
     <div id="content">
         <div id="quote"></div>
@@ -37,6 +43,7 @@
         <a href="./index.html">Return to Orbit</a>
     </div>
     
+    <script src="math.js"></script>
     <script>
         let quotes = [
             "<i>\"What is evident here is the ineptitude of the truth table or of any scheme of (full) truth-functionality to explain the exclusion of degrees.\"</i><br>Marcos Silva, <i>On a Philosophical Motivation for Mutilating Truth Tables</i>",
@@ -46,6 +53,47 @@
         ]
 
         document.getElementById("quote").innerHTML = quotes[0];
+
+        const RES = 12;
+        const WIDTH = window.screen.width;
+        const HEIGHT = window.screen.height;
+        let cvs = document.getElementById("background");
+        cvs.width = WIDTH;
+        cvs.height = HEIGHT;
+        let c = cvs.getContext("2d");
+        let T = 0;
+
+        let titleScreenInterval = setInterval(() => {
+            c.clearRect(0, 0, WIDTH, HEIGHT);
+
+            let p = 0;
+            for (let i = 0; i < WIDTH; i+=RES) {
+                for (let j = 0; j < HEIGHT; j+=RES) { 
+                    const speed = 0.005;
+                    const frequency = 0.002;
+                    const stretch = 12;
+
+                    p = Rand.perlin3D(i*frequency*stretch, j*frequency, T*speed, {octaves: 4});
+                    p = clamp((p + 1) / 2, 0, 1);
+
+                    if (Math.abs(p-0.5) > 0.485)
+                        c.fillStyle = "rgba(167, 15, 253, 0.3)";
+                    else if (Math.abs(p-0.5) > 0.45)
+                        c.fillStyle = "rgba(167, 15, 253, 0.2)";
+                    else if (Math.abs(p-0.5) > 0.4)
+                        c.fillStyle = "rgba(167, 15, 253, 0.1)";
+                    else if (Math.abs(p-0.5) > 0.2)
+                        c.fillStyle = "rgba(200, 180, 253, 0.2)";
+                    else
+                        c.fillStyle = "rgba(200, 180, 253, 0.15)";
+                    
+                    
+                    c.fillRect(i, j , RES, RES);
+                    
+                }
+            }
+            T+=1;
+        }, 32);
     </script>
 </body>
 </html>
