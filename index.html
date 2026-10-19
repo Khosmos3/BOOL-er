@@ -64,6 +64,24 @@
             margin: 10px;
         }
 
+        #modules {
+            display: flex;
+        }
+
+        #truth, #kmap {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #kmap {
+            height: fit-content;
+            margin: 30px;
+            font-size: 36px;
+            user-select: none;
+        }
+
         #background {
             position: fixed;
             z-index: -1;
@@ -79,15 +97,22 @@
         <div id="input-container">
             <textarea id="input" placeholder="Thy statement" spellcheck="false"></textarea>
         </div>
-        <table id = "table">
-        </table>
-        <div id="indicator"></div>
-        <div id="toggle-container">
-            <input type="checkbox" id="letter-number-toggle">
-            <label for="letter-number-toggle">TF/10</label>
-            <input type="checkbox" id="flip-toggle">
-            <label for="flip-toggle">Flip</label>
+        <div id="modules">
+            <div id="truth">
+                <table id="table"></table>
+                <div id="indicator"></div>
+                <div id="toggle-container">
+                    <input type="checkbox" id="letter-number-toggle">
+                    <label for="letter-number-toggle">TF/10</label>
+                    <input type="checkbox" id="flip-toggle">
+                    <label for="flip-toggle">Flip</label>
+                </div>
+            </div>
+            <div id="kmap">
+                <table id="map"></table>
+            </div>
         </div>
+        
     </div>
     
     <script src="logic.js"></script>
