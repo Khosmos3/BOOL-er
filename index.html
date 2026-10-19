@@ -101,6 +101,7 @@
         cvs.height = HEIGHT;
         let c = cvs.getContext("2d");
         let T = 0;
+        let rotation = Rand.range(0, 10);
 
         let titleScreenInterval = setInterval(() => {
             c.clearRect(0, 0, WIDTH, HEIGHT);
@@ -112,7 +113,7 @@
                     const frequency = 0.0045;
 
                     let v = new Vector(i - WIDTH/2, j - HEIGHT/3.5);
-                    v.rotate(Math.sin(T/2000 + 4) * Math.pow(v.mag, 0.3));
+                    v.rotate(Math.sin(T/2000 + rotation) * Math.pow(v.mag, 0.3));
 
                     p = Rand.perlin3D(v.x*frequency, v.y*frequency, T*speed, {octaves: 3});
                     p = clamp(remap(p, -1.3, 1.3, 0, 1), 0, 1);
